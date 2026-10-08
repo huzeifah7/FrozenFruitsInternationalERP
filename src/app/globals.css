@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand Palette: Frozen Fruits International (FFI) */
+    --background: 210 40% 98%; /* #F8FAFC */
+    --foreground: 222 47% 11%; /* #0F172A */
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 222 47% 11%; /* #0F172A */
+    --popover: 0 0% 100%; /* #FFFFFF */
+    --popover-foreground: 222 47% 11%; /* #0F172A */
+    
+    --primary: 220 66% 29%; /* #193A7B Primary Brand */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 200 98% 39%; /* #0284C7 Vibrant Ice Accent */
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 214 32% 91%; /* #E2E8F0 Secondary Text / Muted */
+    --muted-foreground: 215 16% 47%; /* #64748B */
+    
+    --accent: 200 98% 39%; /* #0284C7 */
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 214 32% 91%; /* #E2E8F0 */
+    --input: 214 32% 91%; /* #E2E8F0 */
+    --ring: 220 66% 29%; /* #193A7B */
+    --radius: 0.625rem;
+
+    /* Sidebar Variables: FFI Branded */
+    --sidebar-background: 220 66% 29%; /* #193A7B */
+    --sidebar-foreground: 0 0% 100%; /* White Text */
+    --sidebar-primary: 200 98% 39%; /* Active: #0284C7 Vibrant Ice Accent */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 69% 19%; /* Hover: #0F2552 Primary Dark */
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 220 69% 19%; /* #0F2552 */
+    --sidebar-ring: 200 98% 39%;
+  }
+
+  .dark {
+    --background: 222 47% 7%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 200 98% 39%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 66% 29%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 222 47% 15%;
+    --muted-foreground: 215 16% 65%;
+    --accent: 200 98% 39%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 47% 18%;
+    --input: 222 47% 18%;
+    --ring: 200 98% 39%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-[#193A7B]/30 rounded-full hover:bg-[#193A7B]/50 transition-colors;
+  }
+}
+
+@layer utilities {
+  .custom-scrollbar {
+    scrollbar-color: #193A7B #f1f5f9;
+    scrollbar-width: thin;
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #193A7B;
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #0F2552;
+  }
+
+  .sidebar-scrollbar {
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    scrollbar-width: thin;
+  }
+  .sidebar-scrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  .sidebar-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .sidebar-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 9999px;
+  }
+  .sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+}
+
+@keyframes btnShine {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(200%) rotate(25deg);
+  }
+}
+
+.animate-btn-shine {
+  animation: btnShine 2.2s infinite ease-in-out;
+}

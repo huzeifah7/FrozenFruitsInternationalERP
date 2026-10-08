@@ -1,0 +1,77 @@
+diff --git a/node_modules/@firebase/firestore/dist/index.cjs.js b/node_modules/@firebase/firestore/dist/index.cjs.js
+index ea4efc2..e21d417 100644
+--- a/node_modules/@firebase/firestore/dist/index.cjs.js
++++ b/node_modules/@firebase/firestore/dist/index.cjs.js
+@@ -6536,9 +6536,7 @@ class __PRIVATE_WatchTargetChange {
+         this.ve += 1;
+     }
+     Ue() {
+-        this.ve -= 1, __PRIVATE_hardAssert(this.ve >= 0, 3241, {
+-            ve: this.ve
+-        });
++        if (this.ve > 0) this.ve -= 1;
+     }
+     Ke() {
+         this.xe = !0, this.Me = !0;
+diff --git a/node_modules/@firebase/firestore/dist/index.esm2017.js b/node_modules/@firebase/firestore/dist/index.esm2017.js
+index 09add8a..aa8f695 100644
+--- a/node_modules/@firebase/firestore/dist/index.esm2017.js
++++ b/node_modules/@firebase/firestore/dist/index.esm2017.js
+@@ -6532,9 +6532,7 @@ class __PRIVATE_WatchTargetChange {
+         this.ve += 1;
+     }
+     Ue() {
+-        this.ve -= 1, __PRIVATE_hardAssert(this.ve >= 0, 3241, {
+-            ve: this.ve
+-        });
++        if (this.ve > 0) this.ve -= 1;
+     }
+     Ke() {
+         this.xe = !0, this.Me = !0;
+diff --git a/node_modules/@firebase/firestore/dist/index.node.cjs.js b/node_modules/@firebase/firestore/dist/index.node.cjs.js
+index 60b4c2d..3631edc 100644
+--- a/node_modules/@firebase/firestore/dist/index.node.cjs.js
++++ b/node_modules/@firebase/firestore/dist/index.node.cjs.js
+@@ -8793,8 +8793,9 @@ class TargetState {
+         this.pendingResponses += 1;
+     }
+     recordTargetResponse() {
+-        this.pendingResponses -= 1;
+-        hardAssert(this.pendingResponses >= 0, 0x0ca9, { pendingResponses: this.pendingResponses });
++        if (this.pendingResponses > 0) {
++            this.pendingResponses -= 1;
++        }
+     }
+     markCurrent() {
+         this._hasPendingChanges = true;
+diff --git a/node_modules/@firebase/firestore/dist/index.node.mjs b/node_modules/@firebase/firestore/dist/index.node.mjs
+index 1bdbafd..1e37084 100644
+--- a/node_modules/@firebase/firestore/dist/index.node.mjs
++++ b/node_modules/@firebase/firestore/dist/index.node.mjs
+@@ -8768,8 +8768,9 @@ class TargetState {
+         this.pendingResponses += 1;
+     }
+     recordTargetResponse() {
+-        this.pendingResponses -= 1;
+-        hardAssert(this.pendingResponses >= 0, 0x0ca9, { pendingResponses: this.pendingResponses });
++        if (this.pendingResponses > 0) {
++            this.pendingResponses -= 1;
++        }
+     }
+     markCurrent() {
+         this._hasPendingChanges = true;
+diff --git a/node_modules/@firebase/firestore/dist/index.rn.js b/node_modules/@firebase/firestore/dist/index.rn.js
+index a14797a..f10cf3e 100644
+--- a/node_modules/@firebase/firestore/dist/index.rn.js
++++ b/node_modules/@firebase/firestore/dist/index.rn.js
+@@ -6545,9 +6545,7 @@ class __PRIVATE_WatchTargetChange {
+         this.ve += 1;
+     }
+     Ue() {
+-        this.ve -= 1, __PRIVATE_hardAssert(this.ve >= 0, 3241, {
+-            ve: this.ve
+-        });
++        if (this.ve > 0) this.ve -= 1;
+     }
+     Ke() {
+         this.xe = !0, this.Me = !0;

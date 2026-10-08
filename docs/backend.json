@@ -1,0 +1,159 @@
+
+{
+  "entities": {
+    "AppUser": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "AppUser",
+      "type": "object",
+      "description": "Represents an internal user of the ERP system, linked to Firebase Authentication.",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "role": { "type": "string" },
+        "isActive": { "type": "boolean" },
+        "lastLoginDate": { "type": "string", "format": "date-time" },
+        "employeeId": { "type": "string" }
+      },
+      "required": ["id", "email", "firstName", "lastName", "role", "isActive"]
+    },
+    "Employee": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Employee",
+      "type": "object",
+      "description": "Represents an employee within the company.",
+      "properties": {
+        "id": { "type": "string" },
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "gender": { "type": "string", "enum": ["male", "female"] },
+        "phone": { "type": "string" },
+        "birthday": { "type": "string", "format": "date" },
+        "joinDate": { "type": "string", "format": "date" },
+        "employmentDate": { "type": "string", "format": "date" },
+        "familySituation": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "inactive"] },
+        "employeeStatus": { "type": "string" },
+        "locationId": { "type": "string" },
+        "shift": { "type": "string" },
+        "position": { "type": "string" },
+        "salaryNet": { "type": "number" },
+        "salaryBrut": { "type": "number" },
+        "rib": { "type": "string" },
+        "cin": { "type": "string" },
+        "cnssStatus": { "type": "string" },
+        "matricule": { "type": "string" },
+        "address": { "type": "string" },
+        "childrenCount": { "type": "number" },
+        "paymentStatus": { "type": "string" },
+        "seniority": { "type": "string" },
+        "taxReduction": { "type": "number" },
+        "imageUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["firstName", "lastName", "phone", "position", "status"]
+    },
+    "WorkTimeEntry": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "WorkTimeEntry",
+      "type": "object",
+      "description": "Represents a single work session for an employee.",
+      "properties": {
+        "employeeId": { "type": "string" },
+        "employeeName": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "startTime1": { "type": "string" },
+        "endTime1": { "type": "string" },
+        "startTime2": { "type": "string" },
+        "endTime2": { "type": "string" },
+        "totalHours": { "type": "number" },
+        "isAbsent": { "type": "boolean" },
+        "isHoliday": { "type": "boolean" },
+        "shift": { "type": "string" },
+        "shiftHours": { "type": "number" },
+        "advanceSalary": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "PaySlip": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PaySlip",
+      "type": "object",
+      "properties": {
+        "employeeId": { "type": "string" },
+        "employeeName": { "type": "string" },
+        "position": { "type": "string" },
+        "startDate": { "type": "string", "format": "date" },
+        "endDate": { "type": "string", "format": "date" },
+        "totalHours": { "type": "number" },
+        "netHourlyWage": { "type": "number" },
+        "netEarning": { "type": "number" },
+        "advanceSalary": { "type": "number" },
+        "paymentMethod": { "type": "string" },
+        "rib": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "createdBy": { "type": "string" }
+      }
+    },
+    "HRSetting": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "HRSetting",
+      "type": "object",
+      "properties": {
+        "grossHourlyWage": { "type": "number" },
+        "netHourlyWage": { "type": "number" },
+        "plafondCNSS": { "type": "number" },
+        "cnss": { "type": "number" },
+        "amoRate": { "type": "number" },
+        "applicationDate": { "type": "string", "format": "date" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "createdBy": { "type": "string" }
+      }
+    },
+    "Product": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Product",
+      "type": "object",
+      "description": "Represents a product item in the Sales module.",
+      "properties": {
+        "productId": { "type": "string" },
+        "productName": { "type": "string" },
+        "category": { "type": "string" },
+        "type": { "type": "string" },
+        "description": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["productId", "productName", "category", "type"]
+    }
+  },
+  "auth": {
+    "providers": ["password"]
+  },
+  "firestore": {
+    "/employees/{employeeId}": {
+      "schema": { "$ref": "#/backend/entities/Employee" },
+      "description": "Main employee database."
+    },
+    "/work_time_tracking/{entryId}": {
+      "schema": { "$ref": "#/backend/entities/WorkTimeEntry" },
+      "description": "Daily work time logs."
+    },
+    "/appUsers/{userId}": {
+      "schema": { "$ref": "#/backend/entities/AppUser" },
+      "description": "System users and managers."
+    },
+    "/paySlips/{slipId}": {
+      "schema": { "$ref": "#/backend/entities/PaySlip" },
+      "description": "Generated payroll documents."
+    },
+    "/hrSettings/{settingId}": {
+      "schema": { "$ref": "#/backend/entities/HRSetting" },
+      "description": "Global HR configuration history."
+    },
+    "/products/{productId}": {
+      "schema": { "$ref": "#/backend/entities/Product" },
+      "description": "Product catalog and varieties."
+    }
+  }
+}

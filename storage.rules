@@ -1,0 +1,83 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper functions for authentication and role-based access
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && firestore.get(/databases/(default)/documents/appUsers/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    function isHRManager() {
+      return isSignedIn() && firestore.get(/databases/(default)/documents/appUsers/$(request.auth.uid)).data.role == 'hr_manager';
+    }
+
+    // Rules for Employee-related assets (Profile Portraits and Legal Documents)
+    match /employees/{allPaths=**} {
+      // Allow any authenticated user to read assets (required for directory and payslip views)
+      allow read: if isSignedIn();
+      
+      // Allow full write access for all authenticated users
+      allow write: if isSignedIn();
+    }
+
+    // Rules for Customer-related assets (Company Logos and Contract Documents)
+    match /customers/{allPaths=**} {
+      // Allow any authenticated user to read customer assets
+      allow read: if isSignedIn();
+      
+      // Allow any authenticated user to upload customer assets (logos, documents)
+      allow write: if isSignedIn();
+    }
+
+    // Rules for User Profile Pictures
+    match /userprofile/{userId}/{allPaths=**} {
+      allow read: if isSignedIn();
+      allow write: if request.auth.uid == userId;
+    }
+
+    // Rules for Processing Lines (Quality/Production certificates)
+    match /processing_lines/{allPaths=**} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn(); 
+    }
+
+    // Rules for Main Farms certifications
+    match /main_farms/{allPaths=**} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+
+    // Rules for Small Farms certifications
+    match /small_farms/{allPaths=**} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+
+    // Rules for Lab Analysis reports
+    match /lab_analysis/{allPaths=**} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+
+    // Rules for Stock Situation Delivery Note attachments
+    match /stock_situations/{allPaths=**} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+
+    // Rules for Quality Reports (Pallet photos and documents)
+    match /quality_reports/{allPaths=**} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+
+    // Default deny for all other paths to ensure a secure baseline
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
